@@ -33,7 +33,9 @@ Note: The .env and .venv files are excluded for security. Follow these steps to 
 Bash
 
 git clone https://github.com/Mohith-Rishi/Confluent-Challenge.git
+
 cd Confluent-Challenge
+
 2. Install Dependencies
 Bash
 
