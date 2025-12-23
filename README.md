@@ -5,9 +5,13 @@ Real-Time IoT Pipeline with Flink SQL & Local AI (Ollama)This project is a hybri
 
 
 🚀 Project Infrastructure
+
 Our infrastructure is built for scale and low-latency decision-making:
+
 -Ingestion: A Python-based IoT simulator publishes raw CO_2 and PM_{2.5} data to Confluent Cloud.
+
 -Stream Processing: Flink SQL transforms high-frequency raw data into stable 30-second averages to eliminate noise.
+
 -Edge AI Inference: 
 
 
@@ -30,6 +34,7 @@ Step 3: Local AI HSE Agent (Phi-3 Integration).
 Note: The .env and .venv files are excluded for security. Follow these steps to replicate the environment.
 
 1. Clone the repository
+   
 Bash
 
 git clone https://github.com/Mohith-Rishi/Confluent-Challenge.git
@@ -37,10 +42,13 @@ git clone https://github.com/Mohith-Rishi/Confluent-Challenge.git
 cd Confluent-Challenge
 
 2. Install Dependencies
+   
 Bash
 
 pip install -r requirements.txt
+
 3. Environment Variables
+   
 Create a .env file in the root directory and add your Confluent credentials:
 
 Plaintext
