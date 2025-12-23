@@ -46,5 +46,7 @@ Create a .env file in the root directory and add your Confluent credentials:
 Plaintext
 
 KAFKA_BOOTSTRAP_SERVER=your_server
+
 KAFKA_API_KEY=your_key
+
 KAFKA_API_SECRET=your_secret
