@@ -1,6 +1,7 @@
 # Ignore the virtual environment
 .venv/
 __pycache__/
+*.env
 
 # Ignore sensitive credentials
 .env
