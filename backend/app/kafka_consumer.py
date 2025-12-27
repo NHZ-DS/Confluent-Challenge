@@ -36,7 +36,7 @@ async def kafka_loop():
         if latest_payload:
             await broadcast_live(latest_payload)
             latest_payload = None
-            await asyncio.sleep(2)
+            await asyncio.sleep(1)
         else:
             await asyncio.sleep(0.1)
 
