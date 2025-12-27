@@ -8,7 +8,8 @@ import { ToastContainer } from 'react-toastify';
 import React from 'react'
 import { toast } from "react-toastify";
 import { useRef } from "react";
-
+import ForecastRing from "./components/foreCastRing";
+import ForecastCard from "./components/foreCastCard";
 
 
 const EMPTY_POLLUTION = {
@@ -24,13 +25,19 @@ export default function App() {
   const [latest, setLatest] = useState(EMPTY_POLLUTION);
   const [data, setData] = useState([]);
   const [showGraphs, setShowGraphs] = useState(false);
+  const [forecastData, setForecastData] = useState(EMPTY_POLLUTION);
 
   useEffect(() => {
+    const live_ws_url =
+      import.meta.env.VITE_WS_TARGET || "ws://localhost:8000/ws";
 
-    const ws_url=import.meta.env.VITE_WS_TARGET || "ws://localhost:8000/ws"
-    const ws = new WebSocket(ws_url);
+    const forecast_ws_url =
+      import.meta.env.VITE_WS_FORECAST || "ws://localhost:8000/ws/forecast";
 
-    ws.onmessage = (event) => {
+    // -------- Live Data WebSocket --------
+    const liveWs = new WebSocket(live_ws_url);
+
+    liveWs.onmessage = (event) => {
       const parsed = JSON.parse(event.data);
 
       const formatted = {
@@ -52,7 +59,7 @@ export default function App() {
         });
         lastToastTimePm25.current = now;
       }
-      
+
       if (formatted.CO2 > 650 && now - lastToastTimeCo2.current > 10000) {
         toast.error("🚨 High CO₂ level", {
           position: "top-right",
@@ -60,13 +67,35 @@ export default function App() {
         });
         lastToastTimeCo2.current = now;
       }
-
-      
     };
 
-    ws.onerror = (err) => console.error("WebSocket error", err);
+    liveWs.onerror = (err) =>
+      console.error("Live WebSocket error", err);
 
-    return () => ws.close();
+    // -------- Forecast Data WebSocket --------
+    const forecastWs = new WebSocket(forecast_ws_url);
+
+    forecastWs.onmessage = (event) => {
+      const parsed = JSON.parse(event.data);
+
+      const formattedForecast = {
+        time: new Date(parsed.timestamp * 1000).toLocaleTimeString(),
+        CO2: parsed.co2,
+        PM2_5: parsed.pm25,
+        sensorId: parsed.sensor_id,
+      };
+
+      setForecastData(formattedForecast);
+    };
+
+    forecastWs.onerror = (err) =>
+      console.error("Forecast WebSocket error", err);
+
+    // -------- Cleanup --------
+    return () => {
+      liveWs.close();
+      forecastWs.close();
+    };
   }, []);
 
 
@@ -82,6 +111,38 @@ export default function App() {
         <StatCard label="PM2.5" value={latest?.PM2_5} unit="µg/m³" type="pm25" />
         <StatCard label="CO2" value={latest?.CO2} unit="ppb" type="co2" />
       </div>
+
+      <div className="border-gray-700 hover:shadow-lg rounded-lg p-4 border border-gray-700 mb-6" > 
+        <h2 className="text-sm font-semibold mb-4 opacity-80">
+          🔮 Forecast Severity (Next 5 Minutes)
+        </h2>
+
+        <div className="flex gap-8">
+          <ForecastCard>
+            <ForecastRing
+            label="PM2.5"
+            now={latest?.PM2_5}
+            forecast={forecastData?.PM2_5}
+            unit="µg/m³"
+            type="pm25"
+          />
+        </ForecastCard>
+        
+        <ForecastCard>
+          <ForecastRing
+            label="CO₂"
+            now={latest?.CO2}
+            forecast={forecastData?.CO2}
+            unit="ppb"
+            type="co2"
+          />
+        </ForecastCard>
+        </div>
+      </div>
+
+      
+
+
 
       {/* Button */}
       <button
