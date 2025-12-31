@@ -71,6 +71,18 @@ KAFKA_API_SECRET=your_secret
 
 GOOGLE_APPLICATION_CREDENTIALS=path_to_your_service_account.json
 
+# Frontend Environment Variables
+Create a .env file inside the frontend/ directory.
+Add the following variables:
+
+VITE_WS_TARGET=your_livedata_websocket_endpoint
+VITE_WS_FORECAST=your_forecast_websocket_endpoint
+
+# Backend Kafka Credentials
+For security reasons, Kafka credentials are not committed to the repository.
+Navigate to the backend configuration file: backend/client.properties
+Replace all placeholder fields (bootstrap server, API key, secret, etc.) with your own Confluent Cloud credentials.
+
 2. Using Docker (Recommended)
 
 The fastest way to launch the entire stack (Backend + Frontend + Proxy):
