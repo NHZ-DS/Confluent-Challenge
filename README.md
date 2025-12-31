@@ -127,10 +127,12 @@ Data Integrity: Flink SQL ensures that spikes are validated over 30s windows to 
 
 Production Ready: Nginx handles static file serving and reverse-proxying to ensure high availability.
 
-Mock Frontend:  
+🧪Mock Frontend:  
+
 To facilitate easy demonstration and UI testing without relying on live backend services, a mock frontend has been added to this repository.  
 
 mockFrontend/  
+
 This folder contains a standalone version of the frontend that:  
 
 Uses mocked, pattern-based data generation instead of WebSocket streams  
