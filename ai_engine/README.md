@@ -132,19 +132,19 @@ python consumer_ai.py
 
 ## 📊 Technical Details & Proof Points
 
--Real-Time Processing
+**Real-Time Processing**
 
    -Timestamped data ingestion
 
    -Aggregation using Flink SQL TUMBLE windows
 
--AI Deployment
+**AI Deployment**
 
    -AutoML Tabular model deployed on Google Vertex AI
 
    -Context-aware safety analysis powered by Gemini 2.0
 
--Key Libraries Used
+**Key Libraries Used**
 
    -confluent-kafka — High-performance Kafka client
 
@@ -166,4 +166,4 @@ This AI Engine transforms raw industrial telemetry into:
 
    -Human-readable HSE recommendations
 
-All in real time, at industrial scale.
+All in **real time**, at **industrial scale**.
