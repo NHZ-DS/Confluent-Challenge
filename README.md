@@ -143,5 +143,9 @@ Includes mock AI-based recommendations that emulate the behavior of the real AI 
 
 The mock frontend has been deployed using Vercel and can be accessed here: https://confluent-challenge.vercel.app/ 
 
+## License
+
+This project is licensed under the Apache License, Version 2.0.  
+See the [LICENSE](./LICENSE) file for details.
 
 
